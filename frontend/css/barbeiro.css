@@ -1,5 +1,13 @@
 body {
-    background-image: linear-gradient(rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0.75)), url('../assets/fundo.png');
+    /* 1. O caminho começa com / para achar a pasta assets na raiz */
+    background-image: linear-gradient(rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0.75)), url('/assets/fundo.png');
+
+    /* 2. Garante que a imagem preencha a tela do celular sem repetir */
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+
     /* O fundo não mexe quando você rola a página */
     color: white;
     min-height: 100vh;
@@ -13,8 +21,8 @@ header {
     margin-top: 10px;
 }
 
-button{
-cursor: pointer;
+button {
+    cursor: pointer;
 
 }
 
@@ -237,7 +245,9 @@ h5 img {
     gap: 15px;
 }
 
-.ClienteCardBox { transition: all 0.5s ease; }
+.ClienteCardBox {
+    transition: all 0.5s ease;
+}
 
 
 .CloackClienteIMG {
@@ -301,7 +311,7 @@ h5 img {
 }
 
 
-.BarbeariaStatusMenu{
+.BarbeariaStatusMenu {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -332,11 +342,11 @@ h5 img {
     color: white;
 }
 
-.BarbeariaStatusMainBox h5{
-font-size: 15px;
-font-weight: bolder;
-padding: 10px;
-border-bottom: 1px solid rgba(128, 128, 128, 0.541);
+.BarbeariaStatusMainBox h5 {
+    font-size: 15px;
+    font-weight: bolder;
+    padding: 10px;
+    border-bottom: 1px solid rgba(128, 128, 128, 0.541);
 
 
 
@@ -440,6 +450,7 @@ footer p {
 
 
 .ClienteCardBox.AtendendoAgora {
-    border: 2px solid #ffffff !important; /* Borda Branca */
+    border: 2px solid #ffffff !important;
+    /* Borda Branca */
     box-shadow: 0 0 10px rgba(255, 255, 255, 0.2);
 }
