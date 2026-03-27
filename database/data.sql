@@ -6,7 +6,7 @@ DROP TABLE IF EXISTS barbeariastatus;
 -- 2. Cria as tabelas do SEU jeito
 CREATE TABLE barbeariastatus (
     id INT AUTO_INCREMENT PRIMARY KEY,
-    aberto BOOLEAN DEFAULT FALSE
+    aberto BOOLEAN DEFAULT false
 );
 
 CREATE TABLE profissionais (
