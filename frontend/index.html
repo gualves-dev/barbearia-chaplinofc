@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html lang="pt">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chaplin Barbearia | Fila </title>
+    <link rel="stylesheet" href="css/style.css">
+
+</head>
+
+<body>
+
+    <header>
+
+        <div class="Nav">
+
+            <h3>𝕮𝖍𝖆𝖕𝖑𝖎𝖓 𝕭𝖆𝖗𝖇𝖊𝖆𝖗𝖎𝖆</h3>
+
+            <button id="entrarConta" class="BtnNav">Entrar</button>
+
+        </div>
+
+    </header>
+
+
+    <main>
+
+        <div class="BarberInfoBox">
+
+            <div><img src="assets/logo.png" alt="logo barber"></div>
+            <h5>🔴 FECHADO</h5>
+
+            <div class="StatusSituacion">
+                <p>
+
+
+                <p class="Legenda">
+
+
+                    🔴: Fechado <br>⚪: Aberto
+
+                    <br>Ter - Sab: 9h-19h
+                    <br>
+                    <br>*Atualize a Fila Frequentemente*
+
+
+
+                </p>
+
+                </p>
+            </div>
+
+        </div>
+
+
+        <div class="ProfissionaisBox">
+
+            <h6><img src="assets/icons8-usuário-24.png" alt="">
+                <div class="text1212">Profissionais
+                    Disponíveis</div>
+            </h6>
+
+            <p class="Legenda">🔴: Indisponivel <br>⚪: Atendendo <br>⚫: Disponivel</p>
+
+            <div class="ProfissionaisMainBox">
+
+                <div class="ProfissionaisBoxes">
+
+
+                    <div class="SepareteBoxPF">
+
+
+
+                        <div id="gabrielBoxFila" class="PfBoxes">
+
+                            <div class="PfBox1">
+
+                                <img src="assets/gabriel.png" alt="gabriel">
+                                <h5>Gabriel</h5>
+
+                            </div>
+
+                            <div class="PfBox2">
+                                <div class="NumberFila"><img src="assets/icons8-user-male-96.png" alt="">
+                                    <div class="NumberFila" id="filaNumberGabriel">0</div>
+                                </div>
+                                <div class="NumberFila"><img src="assets/icons8-clock-250.png" alt=""><span
+                                        id="gabrielStatusText"> 0
+                                        min</span>
+                                </div>
+                            </div>
+
+                        </div>
+
+
+                        <div id="pedroBoxFila" class="PfBoxes">
+
+
+                            <div class="PfBox1">
+
+                                <img src="assets/Pedro.png" alt="pedro">
+                                <h5>Pedro</h5>
+
+                            </div>
+
+                            <div class="PfBox2">
+                                <div class="NumberFila"><img src="assets/icons8-user-male-96.png" alt="">
+                                    <div class="NumberFila" id="filaNumberPedro">0</div>
+                                </div>
+                                <div class="NumberFila"><img src="assets/icons8-clock-250.png" alt=""><span
+                                        id="pedroStatusText"> 0
+                                        min</span></div>
+
+                            </div>
+
+
+                        </div>
+
+
+
+
+                    </div>
+
+
+
+                    <div class="SepareteBoxPF">
+
+
+                        <div id="ramonFila" class="PfBoxes Aguardando">
+
+
+                            <div class="PfBox1">
+
+                                <img src="assets/Baia.png" alt="Ramon">
+                                <h5>Ramon</h5>
+
+                            </div>
+
+                            <div class="PfBox2">
+                                <div class="NumberFila"><img src="assets/icons8-user-male-96.png" alt="">
+                                    <div class="NumberFila" id="filaNumberRamon">0</div>
+                                </div>
+                                <div class="NumberFila"><img src="assets/icons8-clock-250.png" alt=""><span
+                                        id="ramonStatusText"> 0
+                                        min</span></div>
+                            </div>
+
+
+                        </div>
+
+
+
+                        <div id="guilhermeBoxFila" class="PfBoxes Aguardando">
+
+                            <div class="PfBox1">
+
+                                <img src="assets/guilherme.png" alt="guilherme">
+                                <h5>Guilherme</h5>
+
+                            </div>
+
+                            <div class="PfBox2">
+
+                                <div class="NumberFila"><img src="assets/icons8-user-male-96.png" alt="">
+                                    <div class="NumberFila" id="filaNumberGuilherme">1</div>
+                                </div>
+                                <div class="NumberFila"><img src="assets/icons8-clock-250.png" alt=""><span
+                                        id="guilhermeStatusText"> 25
+                                        min</span></div>
+
+                            </div>
+
+
+                        </div>
+
+
+
+
+                    </div>
+
+
+                </div>
+
+
+            </div>
+
+
+        </div>
+
+
+        <div class="FilaMainBox">
+
+            <h5><img src="assets/icons8-fila-100.png" alt="">
+                <div class="text1212">Fila de Espera</div>
+            </h5>
+
+            <p class="Legenda">⚪: Em atendimento <br>⚫: Aguardando <br>⏱ Tempo Medio : <span id="tempoMedioTextFila">0
+                    min</span></p>
+
+
+            <div class="FilaBox" id="filaBoxFinal">
+
+                <div id="fila" class="Filadiv">
+
+                    <h6>Nenhuma pessoa na fila no momento</h6>
+
+                </div>
+
+            </div>
+
+
+            <div class="BntMainBox">
+
+
+                <div class="BntBox">
+                    <button id="priceTableBox">Ver Preços</button>
+                    <button id="entrarNaFila">Entrar Na Fila</button>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </main>
+
+    <div id="priceModalTableMainBox" class="Hidden">
+        <span class="close-btn" id="closePriceTableModal">&times;</span>
+        <div class="PriceModalTitle">
+            <h5><img src="assets/icons8-tabela-96.png" alt="TabelaIcon">
+                <div class="text1212">Tabela De Preços</div>
+            </h5>
+        </div>
+
+        <div class="TableBox">
+
+            <div class="PriceBox">
+
+                <h6>Corte Degradê</h6>
+
+                <div class="PriceInfo"><span><img src="assets/icons8-clock-250.png" alt="">
+                        <div class="text1212">30 min</div>
+                    </span> R$ 45,00</div>
+
+            </div>
+
+            <div class="PriceBox">
+
+                <h6>Corte e Barba</h6>
+
+                <div class="PriceInfo"><span><img src="assets/icons8-clock-250.png" alt="">
+                        <div class="text1212">45 min</div>
+                    </span> R$ 78,00</div>
+
+            </div>
+
+            <div class="PriceBox">
+
+                <h6>Corte social</h6>
+
+                <div class="PriceInfo"><span><img src="assets/icons8-clock-250.png" alt="">
+                        <div class="text1212">25 min</div>
+                    </span> R$ 40,00</div>
+
+            </div>
+
+            <div class="PriceBox">
+
+                <h6>Barba</h6>
+
+                <div class="PriceInfo"><span><img src="assets/icons8-clock-250.png" alt="">
+                        <div class="text1212">30 min</div>
+                    </span> R$ 42,00</div>
+
+            </div>
+
+            <div class="PriceBox">
+
+                <h6>Pézinho</h6>
+
+                <div class="PriceInfo"><span><img src="assets/icons8-clock-250.png" alt="">
+                        <div class="text1212">7 min</div>
+                    </span> R$ 10,00</div>
+
+            </div>
+
+            <div class="PriceBox">
+
+                <h6>Sombrancelha</h6>
+
+                <div class="PriceInfo"><span><img src="assets/icons8-clock-250.png" alt="">
+                        <div class="text1212">5 min</div>
+                    </span> R$ 5,00</div>
+
+            </div>
+
+
+        </div>
+
+
+
+
+
+
+
+    </div>
+
+
+    <div class="ModalFilaMainBox " id="hidden2">
+        <span class="close-btn" id="fecharModalEntrarNaFila">&times;</span>
+        <h5><img src="assets/icons8-fila-100.png" alt="a">
+            <div class="text1212">Entre na Fila</div>
+        </h5>
+
+        <div ModalFilaBox>
+
+            <form id="formAgendamento">
+
+                <!-- NOME -->
+                <h6>Digite Seu Nome</h6>
+                <label for="nome">
+                    <input type="text" id="nome" name="nome" placeholder="Nome" required>
+                </label>
+
+                <!-- TELEFONE -->
+                <h6>Digite Seu Número</h6>
+                <label for="telefone">
+                    <input type="tel" id="telefone" name="telefone" placeholder="11999999999" required>
+                </label>
+
+                <!-- SERVIÇOS -->
+                <h6>Serviço</h6>
+
+                <div class="ServicoCkeakBox">
+
+                    <label>
+                        <input type="checkbox" name="servico" value="45"> Degradê
+                    </label>
+
+                    <label>
+                        <input type="checkbox" name="servico" value="40"> Social
+                    </label>
+
+                    <label>
+                        <input type="checkbox" name="servico" value="42"> Barba
+                    </label>
+
+                    <label>
+                        <input type="checkbox" name="servico" value="5"> Sobrancelha
+                    </label>
+
+                    <label>
+                        <input type="checkbox" name="servico" value="10"> Pézinho
+                    </label>
+
+                </div>
+
+                <div class="TotalPrice">
+                    <h6>Total: <span id="totalDEServico">R$ 0.00</span></h6>
+                </div>
+
+                <!-- PROFISSIONAIS -->
+                <div class="TextoTitleSelectProfissional">
+                    <h4>Selecione um Profissional</h4>
+                </div>
+
+                <div class="OpcoesProfissionais">
+
+                    <div class="SepareteBoxPF">
+
+                        <input type="radio" name="profissional" id="gabriel" value="gabriel" required>
+                        <label for="gabriel" class="CardsModal">
+                            <img src="assets/gabriel.png" alt="Gabriel">
+                            <h6>Gabriel</h6>
+                        </label>
+
+                        <input type="radio" name="profissional" id="pedro" value="pedro">
+                        <label for="pedro" class="CardsModal">
+                            <img src="assets/pedro.png" alt="Pedro">
+                            <h6>Pedro</h6>
+                        </label>
+
+                    </div>
+
+                    <div class="SepareteBoxPF">
+
+                        <input type="radio" name="profissional" id="ramon" value="ramon">
+                        <label for="ramon" class="CardsModal">
+                            <img src="assets/Baia.png" alt="Ramon">
+                            <h6>Ramon</h6>
+                        </label>
+
+                        <input type="radio" name="profissional" id="guilherme" value="guilherme">
+                        <label for="guilherme" class="CardsModal">
+                            <img src="assets/guilherme.png" alt="Guilherme">
+                            <h6>Guilherme</h6>
+                        </label>
+
+                    </div>
+
+                    <!-- SEM PREFERÊNCIA -->
+                    <input type="radio" name="profissional" id="nenhum" value="nenhum">
+                    <label for="nenhum" class="CardsModal">
+                        <img src="assets/icons8-usuário-24.png" alt="Sem preferência">
+                        <h6>Sem Preferência</h6>
+                        <p>⚡ Atendimento mais rápido</p>
+                    </label>
+
+                </div>
+
+                <!-- BOTÃO -->
+                <div class="BtnFilaForms"><button class="BtnEndForms" type="submit" id="enviarParaFila">
+                        Entrar na Fila
+                    </button></div>
+
+            </form>
+
+        </div>
+
+    </div>
+
+
+
+
+    <div class="LoginModal" id="hidden3">
+
+        <span class="close-btn" id="closeBtnLogin">&times;</span>
+
+        <h5>Somente Funcionarios</h5>
+
+        <form class="LoginForm">
+
+            <h6>Usuario</h6>
+            <input name="nome" id="loginUsuario" type="text" placeholder="usuario" required>
+
+            <h6>Senha</h6>
+            <input class="Senha" id="loginSenha" name="senha" type="password" placeholder="senha" required>
+
+            <div class="ForgotPass">
+                <a href="#">Esqueci minha senha</a>
+
+            </div>
+
+            <button type="submit" id="entrarNaConta" class="BtnEndForms">Entrar</button>
+
+        </form>
+
+    </div>
+
+
+
+
+
+
+
+
+    <footer>
+
+        <h6>@2026 Todos os Direitos Reservados á Chapin Barbearia</h6>
+        <p>ᕓ𐌄𐌁𐌋𐌀𐌍𐌂𐌄</p>
+
+    </footer>
+
+
+
+    <script src="js/script.js"></script>
+    <script src="js/api.js"></script>
+
+
+</body>
+
+</html>

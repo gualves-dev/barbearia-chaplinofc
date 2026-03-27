@@ -1,0 +1,252 @@
+const URL_BASE = "http://localhost:8080";
+
+
+let ID_PROFISSIONAL_LOGADO = 0;
+
+// pega o texto da página
+const textoBarbeiroLogin = document
+    .querySelector(".NomeBarbeiro")
+    .textContent
+    .trim();
+
+function descobrirBarbeiro() {
+
+    if (textoBarbeiroLogin === "Gabriel") {
+        ID_PROFISSIONAL_LOGADO = 1;
+
+    } else if (textoBarbeiroLogin === "Pedro") {
+        ID_PROFISSIONAL_LOGADO = 2;
+
+    } else if (textoBarbeiroLogin === "Ramon") {
+        ID_PROFISSIONAL_LOGADO = 3;
+
+    } else if (textoBarbeiroLogin === "Guilherme") {
+        ID_PROFISSIONAL_LOGADO = 4;
+    }
+
+    console.log("ID do profissional:", ID_PROFISSIONAL_LOGADO);
+}
+
+// chama a função
+descobrirBarbeiro();
+
+
+
+
+btnIndisponivel.addEventListener('click', async () => {
+
+    console.log("Ficar Indisponível");
+
+    try {
+
+        const res = await fetch(`http://localhost:8080/api/profissionais/${ID_PROFISSIONAL_LOGADO}/indisponivel`, {
+            method: "PUT"
+        });
+
+        if (!res.ok) throw new Error("Erro ao mudar status");
+
+        // 🔥 Atualiza UI
+        btnDisponivel.classList.remove("Hidden");
+        btnIndisponivel.classList.add("Hidden");
+        barbeiroStatusMenu.classList.add("Indisponivel");
+        barbeiroStatusMenu.classList.remove("Disponivel");
+
+    } catch (err) {
+        console.error("Erro:", err);
+    }
+
+});
+
+
+
+btnDisponivel.addEventListener('click', async () => {
+
+    console.log("Ficar Disponivel");
+
+    try {
+
+        const res = await fetch(`http://localhost:8080/api/profissionais/${ID_PROFISSIONAL_LOGADO}/disponivel`, {
+            method: "PUT"
+        });
+
+        if (!res.ok) throw new Error("Erro ao mudar status");
+
+        // 🔥 Atualiza UI
+        console.log("Ficar Disponivel")
+        btnIndisponivel.classList.remove("Hidden");
+        btnDisponivel.classList.add("Hidden");
+        barbeiroStatusMenu.classList.remove("Indisponivel")
+
+
+    } catch (err) {
+        console.error("Erro:", err);
+    }
+
+
+});
+
+
+
+
+
+
+
+async function atualizarFila() {
+    const filaContainer = document.getElementById('filaBarbeiro');
+    const nomeBarbeiroElem = document.querySelector('.NomeBarbeiro');
+    if (!filaContainer || !nomeBarbeiroElem) return;
+
+    const nomeBarbeiro = nomeBarbeiroElem.textContent.trim();
+
+    try {
+        const response = await fetch(`${URL_BASE}/api/clientes`);
+        const clientes = await response.json();
+
+        const filtrados = clientes.filter(c => {
+            const p = (c.profissional || "").toLowerCase();
+            const alvo = nomeBarbeiro.toLowerCase();
+            return p === alvo || p === 'nenhum' || p === '';
+        });
+
+        let htmlGerado = "";
+        if (filtrados.length === 0) {
+            htmlGerado = '<h6 id="textoApagavel">Sem Clientes Na Fila</h6>';
+        } else {
+            filtrados.forEach(cliente => {
+                // --- AJUSTE AQUI: Verifica o status do banco ---
+                const estaAtendendo = cliente.status === "EM_ATENDIMENTO";
+                
+                // Adiciona uma classe extra se estiver atendendo para a borda branca
+                const classeCard = estaAtendendo ? "ClienteCardBox AtendendoAgora" : "ClienteCardBox";
+                const hiddenAtender = estaAtendendo ? "Hidden" : "";
+                const hiddenFinalizar = estaAtendendo ? "" : "Hidden";
+
+                htmlGerado += `
+                <div class="${classeCard}">
+                    <div class="ClienteNome">
+                        <div class="BoxIMG"><img src="assets/icons8-usuário-24.png" alt="user png"></div>
+                        <div class="text1212">${cliente.nome}</div> </div>
+                    <div class="ServicoCliente">
+                        <span>${cliente.servico}</span>
+                        <span id="profissionalEscolhido">${cliente.profissional}</span>
+                        <span class="text1212">${cliente.tempo} min</span>
+                    </div>
+                    <div class="BtnClienteGerenciamento">
+                        <a id="LinkNumberCliente" href="https://wa.me/${cliente.numero}">
+                            <img src="assets/logo-whatsapp-branco-png-icone-whatsapp-png-branco-11562849301ohgxjt9m7x-removebg-preview.png">
+                            Mensagem
+                        </a>
+                        
+                        <button class="ChamarFinalizarCliente ${hiddenAtender}" data-id="${cliente.id}">Atender</button>
+                        <button class="FinalizarCliente ${hiddenFinalizar}" data-id="${cliente.id}">Finalizar</button>
+                    </div>
+                </div>`;
+            });
+        }
+
+        filaContainer.innerHTML = htmlGerado;
+
+    } catch (erro) {
+        console.error("Erro na API:", erro);
+    }
+}
+// ESCUTADOR DE CLIQUES (Delegação de Eventos)
+document.addEventListener('click', async (event) => {
+    const target = event.target;
+
+    // Lógica do botão ATENDER
+    if (target.classList.contains('ChamarFinalizarCliente')) {
+        const id = target.getAttribute('data-id');
+        try {
+            const res = await fetch(`${URL_BASE}/api/clientes/chamar/${id}/${ID_PROFISSIONAL_LOGADO}`, { method: 'PUT' });
+            if (res.ok) {
+                target.classList.add('Hidden');
+                target.parentElement.querySelector('.FinalizarCliente').classList.remove('Hidden');
+                console.log("Atendimento iniciado");
+            }
+        } catch (e) { console.error(e); }
+    }
+
+    // Lógica do botão FINALIZAR
+    if (target.classList.contains('FinalizarCliente')) {
+        const id = target.getAttribute('data-id');
+        if (!confirm("Finalizar atendimento?")) return;
+        try {
+            const res = await fetch(`${URL_BASE}/api/clientes/finalizar/${id}/${ID_PROFISSIONAL_LOGADO}`, { method: 'DELETE' });
+            if (res.ok) {
+                alert("Finalizado!");
+                atualizarFila();
+            }
+        } catch (e) { console.error(e); }
+    }
+});
+
+// Início
+window.addEventListener('load', atualizarFila);
+setInterval(atualizarFila, 30000);
+
+
+
+
+
+
+
+const boxes = {
+    gabriel: document.querySelector("#gabrielBox2"),
+    pedro: document.querySelector("#pedrobox2"),
+    ramon: document.querySelector("#ramonBox2"),
+    guilherme: document.querySelector("#guilhermeBox2")
+};
+
+fetch("http://localhost:8080/api/profissionais")
+    .then(res => res.json())
+    .then(lista => {
+
+        lista.forEach(p => {
+
+            const nome = (p.nome || "").toLowerCase().trim();
+            const box = boxes[nome];
+
+            console.log("Nome:", nome, "Status:", p.status, "Box:", box);
+
+            aplicarStatus(box, p.status);
+        });
+
+    })
+    .catch(err => {
+        console.error("Erro ao buscar profissionais:", err);
+    });
+
+
+// 🔥 FUNÇÃO ÚNICA
+function aplicarStatus(box, status) {
+    if (!box) return;
+
+    if (status === "INDISPONIVEL") {
+        btnDisponivel.classList.remove("Hidden");
+        btnIndisponivel.classList.add("Hidden");
+        box.style.border = "1px solid red";
+    } else if (status === "DISPONIVEL") {
+        btnIndisponivel.classList.remove("Hidden");
+        btnDisponivel.classList.add("Hidden");
+        box.style.border = "1px solid black";
+    } else if (status === "ATENDENDO") {
+        box.style.border = "1px solid white";
+    }
+}
+
+
+
+
+// Executa assim que a página carrega
+window.addEventListener('load', () => {
+    atualizarFila();
+    // Se você tiver a função de atualizar os cards de status dos colegas:
+    // atualizarStatusBarbeiros();
+});
+
+// Mantém o loop eterno (ex: a cada 10 segundos)
+setInterval(() => {
+    console.log("Atualizando fila automaticamente...");
+    atualizarFila();
+}, 10000); // 10000ms = 10 segundos
