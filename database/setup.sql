@@ -15,15 +15,14 @@ CREATE TABLE IF NOT EXISTS fila(
 );
 
 CREATE TABLE IF NOT EXISTS barbeariastatus (
-    id INT PRIMARY KEY,
-    sistema_aberto BOOLEAN DEFAULT TRUE,
-    aberto BOOLEAN
+    id INT AUTO_INCREMENT PRIMARY KEY, -- Adicionei AUTO_INCREMENT
+    aberto BOOLEAN DEFAULT FALSE
 );
 
-CREATE Table IF NOT EXISTS profissionais(
+CREATE TABLE IF NOT EXISTS profissionais (
     id INT AUTO_INCREMENT PRIMARY KEY,
     nome_funcionario VARCHAR(100) NOT NULL,
-    usuario VARCHAR(100) NOT NULL,
+    usuario VARCHAR(100) NOT NULL UNIQUE, -- Adicionei o UNIQUE aqui
     senha VARCHAR(100) NOT NULL,
     page_html VARCHAR(50) NOT NULL,
     status VARCHAR(25) DEFAULT 'DISPONIVEL'
@@ -46,6 +45,15 @@ SELECT * FROM profissionais;
 
 DROP Table fila;
 
-INSERT INTO profissionais (id,nome_funcionario, usuario, senha, page_html) VALUES (5,'Nenhum', 'nenhum', 'nenhum', 'nenhum');
+-- Garante que a barbearia comece com o registro de status ID 1
+INSERT IGNORE INTO barbeariastatus (id, aberto) VALUES (1, true);
 
+-- Inserindo os barbeiros (Corrigido: um único VALUES e todas as colunas preenchidas)
+INSERT IGNORE INTO profissionais (id, nome_funcionario, usuario, senha, page_html, status) 
+VALUES 
+(1, 'Gabriel', 'gabriel', '1234', 'gabriel.html', 'DISPONIVEL'),
+(2, 'Pedro', 'pedro', '1234', 'pedro.html', 'DISPONIVEL'),
+(3, 'Ramon', 'ramon', '1234', 'ramon.html', 'DISPONIVEL'),
+(4, 'Guilherme', 'guilherme', '1234', 'guilherme.html', 'DISPONIVEL'),
+(5, 'Nenhum', 'nenhum', 'nenhum', 'nenhum.html', 'INDISPONIVEL');
 

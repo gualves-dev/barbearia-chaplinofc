@@ -17,16 +17,16 @@ public class Cliente {
     @Column(name = "nome_cliente", nullable = false)
     private String nome;
 
-    @Column(nullable = false)
+    @Column(name = "servico", nullable = false) // Adicionei a vírgula que faltava aqui
     private String servico;
 
-    @Column(nullable = false)
+    @Column(name = "profissional", nullable = false) // Forçando o nome igual ao seu SQL
     private String profissional;
 
     @Column(name = "tempo_estimado", nullable = false)
     private Integer tempo;
 
-    @Column(nullable = false)
+    @Column(name = "status", nullable = false) // Forçando o nome igual ao seu SQL
     private String status = "AGUARDANDO";
 
     @Column(name = "numero", nullable = false)

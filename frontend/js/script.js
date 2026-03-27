@@ -56,7 +56,7 @@ const secaoFila = document.querySelector(".FilaMainBox");
 
 bntEntrarNaFila.addEventListener('click', async () => {
     // 1. O ideal é checar no banco no momento do clique para ter certeza
-    const response = await fetch("http://localhost:8080/api/status");
+    const response = await fetch("https://barbearia-chaplinofc-production.up.railway.app/api/status");
     const barbeariaAberta = await response.json();
 
     if (barbeariaAberta) {
