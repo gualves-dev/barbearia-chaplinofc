@@ -11,35 +11,22 @@ button {
 }
 
 body {
-
-    /* background-image: linear-gradient(rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0.75)), url('../assets/fundo.png');  
-
+    /* O caminho exato que o navegador confirmou que existe */
+    background-image: linear-gradient(rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0.75)), url('/assets/Fundo.png');
     
-    
-    */
-
-    /* 1. O caminho começa com / para achar a pasta assets na raiz */
-    background-image: linear-gradient(rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0.75)), url('/assets/fundo.png');
-    
-    /* 2. Garante que a imagem preencha a tela do celular sem repetir */
     background-size: cover;
     background-position: center;
-    background-attachment: fixed;
     background-repeat: no-repeat;
+    background-attachment: fixed; /* Se bugar no celular, mude para 'scroll' */
     
-    /* 3. Cor de fundo caso a imagem demore a carregar */
     background-color: #000;
-    background-color: rgb(15, 15, 15);
-    background-attachment: fixed;
-    /* O fundo não mexe quando você rola a página */
     color: white;
     min-height: 100vh;
     font-family: 'Inter', sans-serif;
-    position: relative;
     display: flex;
     flex-direction: column;
+    margin: 0;
 }
-
 
 header {
     background-color: rgba(41, 41, 41, 0.199);
