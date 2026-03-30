@@ -115,7 +115,7 @@ async function atualizarFila() {
             filtrados.forEach(cliente => {
                 // --- AJUSTE AQUI: Verifica o status do banco ---
                 const estaAtendendo = cliente.status === "EM_ATENDIMENTO";
-
+                
                 // Adiciona uma classe extra se estiver atendendo para a borda branca
                 const classeCard = estaAtendendo ? "ClienteCardBox AtendendoAgora" : "ClienteCardBox";
                 const hiddenAtender = estaAtendendo ? "Hidden" : "";
@@ -179,7 +179,6 @@ document.addEventListener('click', async (event) => {
             }
         } catch (e) { console.error(e); }
     }
-    aplicarStatusFinal();
 });
 
 // Início
@@ -187,54 +186,56 @@ document.addEventListener('click', async (event) => {
 
 
 
+function teste(){
 
-
-
-function aplicarStatusFinal() {
 
     const boxes = {
-        gabriel: document.querySelector("#gabrielBox2"),
-        pedro: document.querySelector("#pedrobox2"),
-        ramon: document.querySelector("#ramonBox2"),
-        guilherme: document.querySelector("#guilhermeBox2")
-    };
+    gabriel: document.querySelector("#gabrielBox2"),
+    pedro: document.querySelector("#pedrobox2"),
+    ramon: document.querySelector("#ramonBox2"),
+    guilherme: document.querySelector("#guilhermeBox2")
+};
 
-    fetch("https://barbearia-chaplinofc-production.up.railway.app/api/profissionais")
-        .then(res => res.json())
-        .then(lista => {
+fetch("https://barbearia-chaplinofc-production.up.railway.app/api/profissionais")
+    .then(res => res.json())
+    .then(lista => {
 
-            lista.forEach(p => {
+        lista.forEach(p => {
 
-                const nome = (p.nome || "").toLowerCase().trim();
-                const box = boxes[nome];
+            const nome = (p.nome || "").toLowerCase().trim();
+            const box = boxes[nome];
 
-                console.log("Nome:", nome, "Status:", p.status, "Box:", box);
+            console.log("Nome:", nome, "Status:", p.status, "Box:", box);
 
-                aplicarStatus(box, p.status);
-            });
-
-        })
-        .catch(err => {
-            console.error("Erro ao buscar profissionais:", err);
+            aplicarStatus(box, p.status);
         });
 
+    })
+    .catch(err => {
+        console.error("Erro ao buscar profissionais:", err);
+    });
 
-    // 🔥 FUNÇÃO ÚNICA
-    function aplicarStatus(box, status) {
-        if (!box) return;
 
-        if (status === "INDISPONIVEL") {
-            btnDisponivel.classList.remove("Hidden");
-            btnIndisponivel.classList.add("Hidden");
-            box.style.border = "1px solid red";
-        } else if (status === "DISPONIVEL") {
-            btnIndisponivel.classList.remove("Hidden");
-            btnDisponivel.classList.add("Hidden");
-            box.style.border = "1px solid black";
-        } else if (status === "ATENDENDO") {
-            box.style.border = "1px solid white";
-        }
+// 🔥 FUNÇÃO ÚNICA
+function aplicarStatus(box, status) {
+    if (!box) return;
+
+    if (status === "INDISPONIVEL") {
+        btnDisponivel.classList.remove("Hidden");
+        btnIndisponivel.classList.add("Hidden");
+        box.style.border = "1px solid red";
+    } else if (status === "DISPONIVEL") {
+        btnIndisponivel.classList.remove("Hidden");
+        btnDisponivel.classList.add("Hidden");
+        box.style.border = "1px solid black";
+    } else if (status === "ATENDENDO") {
+        box.style.border = "1px solid white";
     }
+}
+
+
+
+
 
 
 
@@ -247,6 +248,16 @@ function aplicarStatusFinal() {
 
 
 
+
+
+// Executa assim que a página carrega
+window.addEventListener('load', () => {
+    atualizarFila();
+    // Se você tiver a função de atualizar os cards de status dos colegas:
+    // atualizarStatusBarbeiros();
+});
+
+// Mantém o loop eterno (ex: a cada 10 segundos)
 
 
 
@@ -270,6 +281,7 @@ btnAtualizar.addEventListener('click', async () => {
 
     // Chama a função que você já tem para buscar o status
     await atualizarFila();
+    teste();
     console.log("Funcionou");
 
     // Volta o texto original depois de 1 segundo
@@ -285,16 +297,18 @@ window.onload = () => {
         document.body.classList.add('tema-glass');
     }
     atualizarFila(); // Carrega o status inicial
+    teste();
 };
 
 
-
-
-// Executa assim que a página carrega
-window.addEventListener('load', () => {
-    atualizarFila();
-    // Se você tiver a função de atualizar os cards de status dos colegas:
-    // atualizarStatusBarbeiros();
+document.addEventListener("visibilitychange", () => {
+    if (document.hidden) {
+        console.log("Página em segundo plano: Pausando processos...");
+        // Aqui você poderia parar timers, se tivesse algum.
+    } else {
+        console.log("Página visível novamente: Atualizando dados...");
+        // Quando o usuário volta para a aba, o site atualiza a fila sozinho uma única vez
+        atualizarFila();
+        teste();
+    }
 });
-
-
