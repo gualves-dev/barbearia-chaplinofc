@@ -251,8 +251,7 @@ document.addEventListener('click', async (event) => {
 });
 
 // Início
-window.addEventListener('load', atualizarFila);
-setInterval(atualizarFila, 30000);
+
 
 
 
@@ -330,18 +329,53 @@ async function fecharBarbeariaParaGabrielLoadding() {
 
 
 
-// Executa assim que a página carrega
-window.addEventListener('load', () => {
-    atualizarFila();
-    // Se você tiver a função de atualizar os cards de status dos colegas:
-    // atualizarStatusBarbeiros();
+
+
+
+
+
+
+
+
+
+const btnTema = document.getElementById('btn-tema');
+const btnAtualizar = document.getElementById('btn-atualizar');
+
+// Lógica de Trocar o Plano de Fundo
+btnTema.addEventListener('click', () => {
+    // Alterna a classe 'tema-glass' no body
+    document.body.classList.toggle('tema-glass');
+    
+    // Salva a escolha para não resetar quando der F5
+    const modoGlass = document.body.classList.contains('tema-glass');
+    localStorage.setItem('preferencia-fundo', modoGlass ? 'glass' : 'escuro');
 });
 
-// Mantém o loop eterno (ex: a cada 10 segundos)
-setInterval(() => {
-    console.log("Atualizando fila automaticamente...");
-    atualizarFila();
-}, 10000); // 10000ms = 10 segundos
+// Lógica de Atualizar a Fila (O comando pro Railway)
+btnAtualizar.addEventListener('click', async () => {
+    // Feedback visual de carregando
+    btnAtualizar.innerText = "⏳...";
+    
+    // Chama a função que você já tem para buscar o status
+    await atualizarFila();
+    console.log("Funcionou");
+    
+    // Volta o texto original depois de 1 segundo
+    setTimeout(() => {
+        btnAtualizar.innerHTML = "🔄 <span class='texto-botao'>Atualizar Fila</span>";
+    }, 1000);
+});
+
+// Ao carregar a página, verifica se o cara já tinha escolhido um fundo antes
+window.onload = () => {
+    const salvo = localStorage.getItem('preferencia-fundo');
+    if (salvo === 'glass') {
+        document.body.classList.add('tema-glass');
+    }
+    atualizarFila(); // Carrega o status inicial
+};
+
+
 
 
 

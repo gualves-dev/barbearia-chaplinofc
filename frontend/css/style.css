@@ -12,14 +12,7 @@ button {
 
 body {
     /* O caminho exato que o navegador confirmou que existe */
-    background-image: linear-gradient(rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0.75)), url('/assets/Fundo.png');
-    
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-    background-attachment: fixed; /* Se bugar no celular, mude para 'scroll' */
-    
-    background-color: #000;
+    background-color: #070606;
     color: white;
     min-height: 100vh;
     font-family: 'Inter', sans-serif;
@@ -28,6 +21,23 @@ body {
     margin: 0;
 }
 
+
+/* Estilo Glass (Com Imagem) */
+/* Estilo Glass (Com Imagem) */
+body.tema-glass {
+    background-image: url('/assets/fundo2.png');
+    background-size: cover;
+    background-attachment: fixed;
+}
+/* No modo glass, você pode colocar um overlay escuro nos cards pra ler melhor */
+body.tema-glass .BarberInfoBox,
+body.tema-glass .ProfissionaisBox,
+body.tema-glass .FilaMainBox
+
+{
+    background: rgba(0, 0, 0, 0.39);
+    backdrop-filter: blur(10px);
+}
 header {
     background-color: rgba(41, 41, 41, 0.199);
     height: auto;
@@ -82,6 +92,7 @@ header {
     margin-left: 25px;
     margin-right: 25px;
     color: white;
+    animation: fadeInModal 0.4s ease-out forwards;
 
 }
 
@@ -136,6 +147,7 @@ header {
     margin-left: 25px;
     margin-right: 25px;
     color: white;
+    animation: fadeInModal 0.7s ease-out forwards;
 
 }
 
@@ -269,6 +281,7 @@ header {
     margin-right: 25px;
     color: white;
     text-align: center;
+    animation: fadeInModal 0.4s ease-out forwards;
 
 }
 
@@ -324,6 +337,7 @@ header {
     padding: 10px 9px;
     border: 1px solid white;
     border-radius: 12px;
+  
 }
 
 #entrarNaFila {
@@ -427,6 +441,7 @@ footer p {
     padding: 20px;
     margin-left: 25px;
     margin-right: 25px;
+    animation: fadeInModal 0.4s ease-out forwards;
 }
 
 #priceModalTableMainBox h5 {
@@ -596,6 +611,7 @@ input:checked+.CardsModal img {
     margin-right: 25px;
     display: flex;
     flex-direction: column;
+    animation: fadeInModal 0.4s ease-out forwards;
 
 }
 
@@ -804,6 +820,8 @@ input:checked+.CardsModal p {
 
 .LoginModal {
     position: absolute;
+    top: 0;
+
     margin-top: 30px;
     display: flex;
     flex-direction: column;
@@ -812,7 +830,7 @@ input:checked+.CardsModal p {
     /* 1. Transparência do fundo (Branco com 5% a 10% de opacidade) */
     background: rgba(129, 129, 129, 0.048);
     /* 2. O desfoque (O que dá o efeito de vidro fosco) */
-    backdrop-filter: blur(12px);
+    backdrop-filter: blur(25px);
     -webkit-backdrop-filter: blur(12px);
     /* Suporte para Safari */
     /* 3. Borda fina e clara (Simula o corte do vidro) */
@@ -824,6 +842,7 @@ input:checked+.CardsModal p {
     margin-left: 25px;
     margin-right: 25px;
     color: white;
+    animation: fadeInModal 0.4s ease-out forwards;
 
 
 }
@@ -891,6 +910,7 @@ input:checked+.CardsModal p {
     border-radius: 30px;
     padding: 10px;
     border: 1px solid rgba(255, 255, 255, 0.158);
+    animation: fadeInModal 0.4s ease-out forwards;
 
 }
 
@@ -903,11 +923,13 @@ input:checked+.CardsModal p {
     padding: 5px;
     gap: 5px;
     border-bottom: 1px solid rgba(128, 128, 128, 0.541);
+    animation: fadeInModal 0.7s ease-out forwards;
 }
 
 .ClienteNome img {
     height: 25px;
     width: 25px;
+    animation: fadeInModal 0.5s ease-out forwards;
 }
 
 .BoxIMG {
@@ -936,3 +958,95 @@ input:checked+.CardsModal p {
     width: 25px;
     height: 25px;
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.container-botoes {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    z-index: 9999;
+}
+
+.botao-flutuante {
+    background-color: #000000; /* Cor neutra */
+    color: white;
+    border: none;
+    border-radius: 50px;
+    padding: 12px 18px;
+    font-size: 14px;
+    font-weight: bold;
+    border: 1px solid white;
+    cursor: pointer;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.4);
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    animation: fadeInModal 0.3s ease-out forwards;
+}
+
+.botao-flutuante:hover {
+    transform: translateY(-3px);
+    filter: brightness(1.2);
+}
+
+.botao-flutuante.principal {
+    background-color: #ffffff; /* Amarelo/Dourado Barbearia */
+    color: #ff0000;
+    border: 2px solid rgb(0, 0, 0);
+}
+
+/* Esconde o texto no celular para ficar só o ícone se a tela for pequena */
+@media (max-width: 600px) {
+    .texto-botao {
+        display: none;
+    }
+    .botao-flutuante {
+        padding: 15px;
+        border-radius: 50%;
+    }
+}
+
+
+
+
+/* Definição das Animações */
+@keyframes fadeInModal {
+    from {
+        opacity: 0;
+        transform: translateY(-20px) scale(0.9);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+@keyframes fadeInItem {
+    from {
+        opacity: 0;
+        transform: translateX(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+

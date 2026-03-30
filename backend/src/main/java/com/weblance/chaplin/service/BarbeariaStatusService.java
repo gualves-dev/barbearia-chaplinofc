@@ -17,7 +17,7 @@ public class BarbeariaStatusService {
 
         LocalTime timeAgora = LocalTime.now();
 
-        boolean horarioValido = timeAgora.isAfter(LocalTime.of(8, 29)) && timeAgora.isBefore(LocalTime.of(19, 30));
+        boolean horarioValido = timeAgora.isAfter(LocalTime.of(11, 29)) && timeAgora.isBefore(LocalTime.of(22, 30));
 
         return statusNoBanco && horarioValido;
 

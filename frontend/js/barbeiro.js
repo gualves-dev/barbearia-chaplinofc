@@ -181,3 +181,16 @@ function finalizarAtendimento(botaoFinalizar, clienteId) {
         // fetch(`/api/atendimento/finalizar/${clienteId}`, { method: 'DELETE' });
     }, 500);
 }
+
+
+
+document.addEventListener("visibilitychange", () => {
+    if (document.hidden) {
+        console.log("Página em segundo plano: Pausando processos...");
+        // Aqui você poderia parar timers, se tivesse algum.
+    } else {
+        console.log("Página visível novamente: Atualizando dados...");
+        // Quando o usuário volta para a aba, o site atualiza a fila sozinho uma única vez
+        inicializarPainelCliente();
+    }
+});

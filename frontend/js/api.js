@@ -229,7 +229,7 @@ document.getElementById("formAgendamento").addEventListener("submit", async (e) 
 
     } catch (err) {
         console.error("Erro no agendamento:", err);
-        alert("Erro ao conectar com o servidor.");
+        alert("Barbeiro Indisponivel.");
     }
 });
 
@@ -296,6 +296,45 @@ async function atualizarDashboardGeral() {
     }
 }
 
-// Chamar a cada 30 segundos junto com a fila
-setInterval(atualizarDashboardGeral, 30000);
-window.addEventListener('load', atualizarDashboardGeral);
+
+
+
+
+
+
+const btnTema = document.getElementById('btn-tema');
+const btnAtualizar = document.getElementById('btn-atualizar');
+
+// Lógica de Trocar o Plano de Fundo
+btnTema.addEventListener('click', () => {
+    // Alterna a classe 'tema-glass' no body
+    document.body.classList.toggle('tema-glass');
+    
+    // Salva a escolha para não resetar quando der F5
+    const modoGlass = document.body.classList.contains('tema-glass');
+    localStorage.setItem('preferencia-fundo', modoGlass ? 'glass' : 'escuro');
+});
+
+// Lógica de Atualizar a Fila (O comando pro Railway)
+btnAtualizar.addEventListener('click', async () => {
+    // Feedback visual de carregando
+    btnAtualizar.innerText = "⏳...";
+    
+    // Chama a função que você já tem para buscar o status
+    await inicializarPainelCliente();
+    console.log("Funcionou");
+    
+    // Volta o texto original depois de 1 segundo
+    setTimeout(() => {
+        btnAtualizar.innerHTML = "🔄 <span class='texto-botao'>Atualizar Fila</span>";
+    }, 1000);
+});
+
+// Ao carregar a página, verifica se o cara já tinha escolhido um fundo antes
+window.onload = () => {
+    const salvo = localStorage.getItem('preferencia-fundo');
+    if (salvo === 'glass') {
+        document.body.classList.add('tema-glass');
+    }
+    inicializarPainelCliente(); // Carrega o status inicial
+};
